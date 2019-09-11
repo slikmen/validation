@@ -4,7 +4,8 @@
     "description": "Removes all spaces from a string",
     "license": "GNU",
     "repository": "slikmen/validation",
-    "main": "index.ts",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "keywords": [
         "tiny",
         "npm",
@@ -17,12 +18,10 @@
         "lint": "tslint -p tsconfig.json",
         "test": "jest --config jestconfig.json",
         "postversion" : "git push && git push --tags",
-        "description": "Removes all spaces from a string",
         "prepare" : "npm run build",
         "prepublishOnly" : "npm test && npm run lint",
         "preversion" : "npm run lint"
     },
-    
     "files": [
         "lib/**/*"
     ],
