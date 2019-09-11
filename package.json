@@ -1,4 +1,38 @@
 {
-    "name": "@slikmen/validation-test",
-    "version": "1.0.0"
+    "name": "@slikmen/vue-validation",
+    "version": "1.0.0",
+    "description": "Removes all spaces from a string",
+    "license": "GNU",
+    "repository": "slikmen/validation",
+    "main": "index.ts",
+    "keywords": [
+        "tiny",
+        "npm",
+        "package",
+        "slikmen"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+        "lint": "tslint -p tsconfig.json",
+        "test": "jest --config jestconfig.json",
+        "postversion" : "git push && git push --tags",
+        "description": "Removes all spaces from a string",
+        "prepare" : "npm run build",
+        "prepublishOnly" : "npm test && npm run lint",
+        "preversion" : "npm run lint"
+    },
+    
+    "files": [
+        "lib/**/*"
+    ],
+    "devDependencies": {
+        "@types/jest": "^24.0.18",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2",
+        "ts-jest": "^24.0.2",
+        "tslint": "^5.20.0",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.6.3"
+    }
 }
