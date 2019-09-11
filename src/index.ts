@@ -23,19 +23,19 @@ export default {
                 }
             },
             created: (el: any) => {
-                let inputs = Vue.getAllInputs(el)
+                const inputs: any = Vue.getAllInputs(el)
                 inputs.map((input: any) => {
-                    let fieldName = input.srcElement.name
+                    const fieldName = input.srcElement.name
                     const field: any = Vue.$validator.fields.find({ name: fieldName })
 
                     input.addEventListener('blur', (x: any) => {
-                        input.style.borderColor = 'blue'
+                        x.style.borderColor = 'blue'
                         field.reset()
                         Vue.$validator.errors.remove(field.name, field.scope)
                     })
 
                     input.addEventListener('focus', (x: any) => {
-                        input.style.borderColor = 'red'
+                        x.style.borderColor = 'red'
                         Vue.$validator.validate(field.name)
                     })
                 })
