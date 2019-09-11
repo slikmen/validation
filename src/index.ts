@@ -17,13 +17,8 @@ export default {
     
         // 3. inject some component options
         Vue.mixin({
-            methods: {
-                getAllInputs(el: any) {
-                    return el.getElementsByTagName('input');
-                }
-            },
             created: (el: any) => {
-                const inputs: any = Vue.getAllInputs(el)
+                const inputs: any = el.getElementsByTagName('input');
                 inputs.map((input: any) => {
                     const fieldName = input.srcElement.name
                     const field: any = Vue.$validator.fields.find({ name: fieldName })
