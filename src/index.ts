@@ -1,7 +1,10 @@
+import MyComponent from './components/Component.vue'
+
 export default {
     install(Vue: any, options: any) {
         // 1. add global method or property
-        Vue.myGlobalMethod = function () {
+        Vue.component('test-validation', MyComponent)
+        Vue.myGlobalMethod = () => {
         // some logic ...
         }
     
@@ -14,14 +17,14 @@ export default {
     
         // 3. inject some component options
         Vue.mixin({
-            created: function () {
-                console.log('hello')
+            created: () => {
+                // Hello
             }
         })
     
         // 4. add an instance method
-        Vue.prototype.$myMethod = function (methodOptions: any) {
-        // some logic ...
+        Vue.prototype.$myMethod = (methodOptions: any) => {
+            // some logic ...
         }
     }
 }

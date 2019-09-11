@@ -19,7 +19,7 @@
         "test": "jest --config jestconfig.json",
         "postversion": "git push && git push --tags",
         "prepare": "npm run build",
-        "prepublishOnly": "npm test && npm run lint",
+        "prepublishOnly": "npm run lint",
         "preversion": "npm run lint"
     },
     "files": [
@@ -33,5 +33,8 @@
         "tslint": "^5.20.0",
         "tslint-config-prettier": "^1.18.0",
         "typescript": "^3.6.3"
+    },
+    "dependencies": {
+        "vue": "^2.6.10"
     }
 }
