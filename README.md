@@ -13,6 +13,6 @@ This is just an extension on Vee-validate and works with every rule.
 ## How to use
 ```javascript
 // import Script
-import vueValidation from 'vue-validation'
+import vueValidation from '@slikmen/vue-validation'
 Vue.use(vueValidation)
 ```
