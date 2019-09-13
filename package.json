@@ -13,7 +13,7 @@
         "slikmen"
     ],
     "scripts": {
-        "build": "tsc",
+        "build": "tsc --watch",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
         "lint": "tslint -p tsconfig.json",
         "test": "jest --config jestconfig.json",
