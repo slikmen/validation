@@ -4,7 +4,7 @@ export default {
     install(Vue: any) {
         Vue.mixin({
             mounted() {
-                new ValidationExtensionClient(this.$validator)
+                return new ValidationExtensionClient(this.$validator)
             }
         })
     }

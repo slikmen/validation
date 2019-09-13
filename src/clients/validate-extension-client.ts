@@ -15,8 +15,8 @@ class ValidationExtensionClient {
      * @param {Object} Validator - Vee-validate API
      * @param {Any} Input - Current field
      */
-    public ValidateField(input: any, Validator: any): void {
-        new Promise((resolve) => {
+    public ValidateField(input: any, Validator: any) {
+        return new Promise((resolve) => {
             const field = Validator.fields.find({ name: input.getAttribute('name') })
             if (!field) {
                 return
@@ -24,7 +24,7 @@ class ValidationExtensionClient {
             Validator.validate(field.name).then(() => {
                 resolve(true)
             }) 
-            return
+           
         })
     }
 
@@ -33,8 +33,8 @@ class ValidationExtensionClient {
      * @param {Object} Validator - Vee-validate API
      * @param {Any} Input - Current field
      */
-    public ResetFieldValidation(input: any, Validator: any): void  {
-        new Promise((resolve) => {
+    public ResetFieldValidation(input: any, Validator: any) {
+        return new Promise((resolve) => {
             const field = Validator.fields.find({ name: input.getAttribute('name') })
             if (!field) {
                 return
@@ -42,7 +42,6 @@ class ValidationExtensionClient {
             field.reset()
             Validator.errors.remove(field.name, field.scope)
             resolve(true)
-            return
         })
     }
 
