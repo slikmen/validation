@@ -1,45 +1,11 @@
-// import MyComponent from './components/Component.vue'
+import ValidationExtensionClient from './clients/validate-extension-client'
 
 export default {
-    install(Vue: any, options: any) {
-        // 1. add global method or property
-        // Vue.component(MyComponent.name, MyComponent)
-        Vue.myGlobalMethod = () => {
-        // some logic ...
-        }
-    
-        // 2. add a global asset
-        Vue.directive('my-directive', {
-            bind (el: any, binding: any, vnode: any, oldVnode: any) {
-                // Bind directive
-            }
-        })
-    
-        // 3. inject some component options
+    install(Vue: any) {
         Vue.mixin({
-            created: (el: any) => {
-                const inputs: any = el.getElementsByTagName('input');
-                inputs.map((input: any) => {
-                    const fieldName = input.srcElement.name
-                    const field: any = Vue.$validator.fields.find({ name: fieldName })
-
-                    input.addEventListener('blur', (x: any) => {
-                        x.style.borderColor = 'blue'
-                        field.reset()
-                        Vue.$validator.errors.remove(field.name, field.scope)
-                    })
-
-                    input.addEventListener('focus', (x: any) => {
-                        x.style.borderColor = 'red'
-                        Vue.$validator.validate(field.name)
-                    })
-                })
+            mounted() {
+                new ValidationExtensionClient(this.$validator)
             }
         })
-    
-        // 4. add an instance method
-        Vue.prototype.$myMethod = (methodOptions: any, el: any) => {
-        //    Method
-        }
     }
 }
