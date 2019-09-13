@@ -10,10 +10,9 @@ I found that when I wanted to remove the error message on focus and revalidate f
 this was not possible. To make it possible I used the Vee-validation API to remove and validate.
 This is just an extension on Vee-validate and works with every rule.
 
----
 ## How to use
-`
+```javascript
+// import Script
 import vueValidation from 'vue-validation'
-
 Vue.use(vueValidation)
-`
+```
