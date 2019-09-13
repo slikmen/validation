@@ -1,6 +1,6 @@
 {
     "name": "@slikmen/vue-validation",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Removes all spaces from a string",
     "license": "GNU",
     "repository": "slikmen/validation",
