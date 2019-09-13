@@ -24,6 +24,7 @@ class ValidationExtensionClient {
             Validator.validate(field.name).then(() => {
                 resolve(true)
             }) 
+            return
         })
     }
 
@@ -41,6 +42,7 @@ class ValidationExtensionClient {
             field.reset()
             Validator.errors.remove(field.name, field.scope)
             resolve(true)
+            return
         })
     }
 
