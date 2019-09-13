@@ -15,16 +15,15 @@ class ValidationExtensionClient {
      * @param {Object} Validator - Vee-validate API
      * @param {Any} Input - Current field
      */
-    public ValidateField(input: any, Validator: any) {
+    public ValidateField(input: any) {
         return new Promise((resolve) => {
-            const field = Validator.fields.find({ name: input.getAttribute('name') })
+            const field = this.Validator.fields.find({ name: input.name })
             if (!field) {
                 return
             }
-            Validator.validate(field.name).then(() => {
+            this.Validator.validate(field.name).then(() => {
                 resolve(true)
             }) 
-           
         })
     }
 
@@ -33,28 +32,30 @@ class ValidationExtensionClient {
      * @param {Object} Validator - Vee-validate API
      * @param {Any} Input - Current field
      */
-    public ResetFieldValidation(input: any, Validator: any) {
+    public ResetFieldValidation(input: any) {
         return new Promise((resolve) => {
-            const field = Validator.fields.find({ name: input.getAttribute('name') })
+            const field = this.Validator.fields.find({ name: input.name })
             if (!field) {
                 return
             }
             field.reset()
-            Validator.errors.remove(field.name, field.scope)
+            this.Validator.errors.remove(field.name, field.scope)
             resolve(true)
         })
     }
 
     /**
      * Initialise on mounted
-     * @param {Object} Validator - Vee-validate API
-     * @param {Any} Input - Current field
      */
     public OnInitialise() {
-        const inputs: any = document.getElementsByTagName('input');
+        const inputs: any = this.Validator.fields
         for (const input of inputs) {
-            input.addEventListener('blur', this.ValidateField.bind(null, input, this.Validator), false)
-            input.addEventListener('focus', this.ResetFieldValidation.bind(null, input, this.Validator), false) 
+            const CanBeValidated: string = input.el.getAttribute('data-validate')
+            if (!CanBeValidated) { 
+                return
+            }
+            input.el.addEventListener('blur', this.ValidateField.bind(this, input), false)
+            input.el.addEventListener('focus', this.ResetFieldValidation.bind(this, input), false) 
         }
     }
 }
