@@ -3,7 +3,9 @@ class ValidationExtensionClient {
 
     constructor(Validator: any) {
         this.Validator = Validator
-        if (Validator.fields.length === 0) return
+        if (Validator.fields.length === 0) { 
+            return
+        }
         this.OnInitialise()
     }
 
