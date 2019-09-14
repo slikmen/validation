@@ -1,10 +1,12 @@
 class ValidationExtensionClient {
     public Validator: any;
+    private global: boolean;
 
-    constructor(Validator: any) {
-        this.Validator = Validator
+    constructor(Validator: any, global: any, root: any) {
+        this.Validator = Validator;
+        this.global = global;
         if (Validator.fields.length === 0) { 
-            return
+            return;
         }
         this.OnInitialise()
     }
@@ -12,15 +14,16 @@ class ValidationExtensionClient {
     /**
      * Validate field by Accessing the 
      * vee-validate API
-     * @param {Object} Validator - Vee-validate API
      * @param {Any} Input - Current field
      */
     public ValidateField(input: any) {
         return new Promise((resolve) => {
+            // Find field in $validator
             const field = this.Validator.fields.find({ name: input.name })
             if (!field) {
                 return
             }
+            // Validates the field again.
             this.Validator.validate(field.name).then(() => {
                 resolve(true)
             }) 
@@ -29,15 +32,16 @@ class ValidationExtensionClient {
 
     /**
      * Resets the Vee-validation on field
-     * @param {Object} Validator - Vee-validate API
      * @param {Any} Input - Current field
      */
     public ResetFieldValidation(input: any) {
         return new Promise((resolve) => {
+            // Find field in $validator
             const field = this.Validator.fields.find({ name: input.name })
             if (!field) {
                 return
             }
+            // Resets field and removes error message
             field.reset()
             this.Validator.errors.remove(field.name, field.scope)
             resolve(true)
@@ -48,12 +52,18 @@ class ValidationExtensionClient {
      * Initialise on mounted
      */
     public OnInitialise() {
-        const inputs: any = this.Validator.fields
+        // Get inputs from components $validator
+        const inputs: any = this.Validator.fields.items
         for (const input of inputs) {
-            const CanBeValidated: string = input.el.getAttribute('data-validate')
-            if (!CanBeValidated) { 
-                return
+            // Checks on global option
+            if (!this.global) {
+                const CanBeValidated: any = input.el.getAttribute("data-validate")
+                // if does not contain attribute ignore input
+                if (!CanBeValidated) { 
+                    continue
+                }
             }
+            // Add events on inputs
             input.el.addEventListener('blur', this.ValidateField.bind(this, input), false)
             input.el.addEventListener('focus', this.ResetFieldValidation.bind(this, input), false) 
         }
