@@ -2,13 +2,13 @@ class ValidationExtensionClient {
     public Validator: any;
     private global: boolean;
 
-    constructor(Validator: any, global: any, root: any) {
+    constructor(Validator: any, global: any) {
         this.Validator = Validator;
         this.global = global;
         if (Validator.fields.length === 0) { 
             return;
         }
-        this.OnInitialise()
+        this.OnInitialise();
     }
 
     /**
@@ -19,13 +19,13 @@ class ValidationExtensionClient {
     public ValidateField(input: any) {
         return new Promise((resolve) => {
             // Find field in $validator
-            const field = this.Validator.fields.find({ name: input.name })
+            const field = this.Validator.fields.find({ name: input.name });
             if (!field) {
-                return
+                return;
             }
             // Validates the field again.
             this.Validator.validate(field.name).then(() => {
-                resolve(true)
+                resolve(true);
             }) 
         })
     }
@@ -39,12 +39,12 @@ class ValidationExtensionClient {
             // Find field in $validator
             const field = this.Validator.fields.find({ name: input.name })
             if (!field) {
-                return
+                return;
             }
             // Resets field and removes error message
-            field.reset()
-            this.Validator.errors.remove(field.name, field.scope)
-            resolve(true)
+            field.reset();
+            this.Validator.errors.remove(field.name, field.scope);
+            resolve(true);
         })
     }
 
@@ -53,19 +53,19 @@ class ValidationExtensionClient {
      */
     public OnInitialise() {
         // Get inputs from components $validator
-        const inputs: any = this.Validator.fields.items
+        const inputs: any = this.Validator.fields.items;
         for (const input of inputs) {
             // Checks on global option
             if (!this.global) {
-                const CanBeValidated: any = input.el.getAttribute("data-validate")
+                const CanBeValidated: any = input.el.getAttribute("data-validate");
                 // if does not contain attribute ignore input
                 if (!CanBeValidated) { 
-                    continue
+                    continue;
                 }
             }
             // Add events on inputs
-            input.el.addEventListener('blur', this.ValidateField.bind(this, input), false)
-            input.el.addEventListener('focus', this.ResetFieldValidation.bind(this, input), false) 
+            input.el.addEventListener('blur', this.ValidateField.bind(this, input), false);
+            input.el.addEventListener('focus', this.ResetFieldValidation.bind(this, input), false);
         }
     }
 }
